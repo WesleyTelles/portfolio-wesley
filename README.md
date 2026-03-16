@@ -1,6 +1,6 @@
 # Wesley Telles — Portfólio
 
-Meu portfólio pessoal, desenvolvido do zero com HTML, CSS e JavaScript puro. Sem frameworks, sem dependências — só código.
+Meu portfólio pessoal, desenvolvido do zero com HTML, CSS e JavaScript puro. Sem frameworks, sem dependências, só código.
 
 Acesse: [wesleytelles.netlify.app](https://wesleytelles.netlify.app)
 
