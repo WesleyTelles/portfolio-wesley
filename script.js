@@ -1,15 +1,8 @@
-/* ================================================
-   Wesley Telles — Portfolio
-   script.js
-   ================================================ */
-
-/* PIXEL CHARACTER — Original */
 const canvas = document.getElementById('pixel-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 120; canvas.height = 150;
 const S = 8;
 
-// Detect dark mode and change outfit
 const isDarkMode = () => document.documentElement.getAttribute('data-theme') === 'dark';
 
 function getColors() {
@@ -36,7 +29,6 @@ function getColors() {
 }
 let C = getColors();
 
-// Update colors when theme changes
 const themeToggleBtn = document.getElementById('theme-toggle');
 if(themeToggleBtn) {
   themeToggleBtn.addEventListener('click', () => {
@@ -54,7 +46,6 @@ function drawChar(frame, offsetY) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const oy = offsetY || 0;
 
-  // Hair curly
   for(let x=2;x<=11;x++) px(x, 0+oy, C.hair);
   for(let x=1;x<=12;x++) px(x, 1+oy, C.hair);
   for(let x=1;x<=12;x++) px(x, 2+oy, C.hair);
@@ -67,19 +58,16 @@ function drawChar(frame, offsetY) {
     ctx.fill();
   });
 
-  // Head
   for(let x=3;x<=10;x++) px(x, 3+oy, C.skin);
   for(let x=2;x<=11;x++) px(x, 4+oy, C.skin);
   for(let x=2;x<=11;x++) px(x, 5+oy, C.skin);
   for(let x=2;x<=11;x++) px(x, 6+oy, C.skin);
   for(let x=3;x<=10;x++) px(x, 7+oy, C.skin);
 
-  // Ears
   px(2, 5+oy, C.ear); px(11, 5+oy, C.ear);
   ctx.fillStyle = C.watch;
   ctx.fillRect(11*S+2, (5+oy)*S+4, 3, 3);
 
-  // Eyes + glasses
   px(4, 5+oy, C.eye); px(5, 5+oy, C.eye);
   px(8, 5+oy, C.eye); px(9, 5+oy, C.eye);
   ctx.strokeStyle = C.frame; ctx.lineWidth = 1;
@@ -87,14 +75,11 @@ function drawChar(frame, offsetY) {
   ctx.strokeRect(7.5*S, (4.5+oy)*S, 2.8*S, 1.8*S);
   ctx.beginPath(); ctx.moveTo(6.3*S,(5.2+oy)*S); ctx.lineTo(7.5*S,(5.2+oy)*S); ctx.stroke();
 
-  // Mouth
   px(5, 7+oy, C.skind); px(6, 7+oy, C.skind);
   px(7, 7+oy, C.skind); px(8, 7+oy, C.skind);
 
-  // Neck
   px(6, 8+oy, C.skin); px(7, 8+oy, C.skin);
 
-  // Shirt + arms
   const armSwing = frame;
   for(let x=4;x<=9;x++) {
     px(x, 9+oy, C.shirt); px(x, 10+oy, C.shirt);
@@ -111,17 +96,14 @@ function drawChar(frame, offsetY) {
   ctx.fillStyle = C.tattoo;
   ctx.fillRect((1-armSwing)*S+1, (13+oy)*S+2, S-2, S-3);
 
-  // Pants
   for(let x=4;x<=9;x++) px(x, 13+oy, C.pants);
   for(let x=4;x<=6;x++) { px(x,14+oy,C.pants); px(x,15+oy,C.pants); px(x,16+oy,C.pants); }
   for(let x=7;x<=9;x++) { px(x,14+oy,C.pants2); px(x,15+oy,C.pants2); px(x,16+oy,C.pants2); }
 
-  // Shoes
   const legOff = frame === 1 ? 1 : 0;
   px(3,17+oy,C.shoe); px(4,17+oy+legOff,C.shoe); px(5,17+oy+legOff,C.shoe);
   px(8,17+oy,C.shoe); px(9,17+oy-legOff,C.shoe); px(10,17+oy-legOff,C.shoe);
 
-  // Shadow
   ctx.fillStyle = 'rgba(0,0,0,0.08)';
   ctx.beginPath();
   ctx.ellipse(canvas.width/2, canvas.height-6, 34, 7, 0, 0, Math.PI*2);
@@ -138,25 +120,20 @@ function animateChar() {
 }
 animateChar();
 
-/* HELLO WORLD */
 const roles=['Hello, World! 👋','Eu sou Wesley.','Dev Frontend.','Bem-vindo ao meu portfólio!'];
 let ri=0,ci=0,del=false;
 const typedEl=document.getElementById('hello-text');
 function typeHello(){const word=roles[ri];if(!del)ci++;else ci--;typedEl.innerHTML=word.substring(0,ci);let speed=del?55:100;if(!del&&ci===word.length){del=true;speed=2000;}else if(del&&ci===0){del=false;ri=(ri+1)%roles.length;speed=400;}setTimeout(typeHello,speed);}
 typeHello();
 
-/* SCROLL REVEAL */
 document.querySelectorAll('.reveal').forEach(el=>{new IntersectionObserver(entries=>{if(entries[0].isIntersecting)el.classList.add('in');},{threshold:0.1}).observe(el);});
 
-/* COUNT UP */
 function countUp(id,target){const el=document.getElementById(id);let c=0,s=Math.max(1,Math.ceil(target/40));const iv=setInterval(()=>{c=Math.min(c+s,target);el.textContent=c;if(c>=target)clearInterval(iv);},35);}
 let counted=false;
 new IntersectionObserver(entries=>{if(entries[0].isIntersecting&&!counted){counted=true;countUp('s1',4);countUp('s2',3);countUp('s3',2);countUp('s4',7);}},{threshold:0.3}).observe(document.querySelector('#about'));
 
-/* SKILL BARS */
 new IntersectionObserver(entries=>{if(entries[0].isIntersecting)document.querySelectorAll('.skill-bar-fill[data-w]').forEach(b=>setTimeout(()=>b.style.width=b.dataset.w,200));},{threshold:0.2}).observe(document.querySelector('#skills'));
 
-/* TICKER */
 (function(){
   const items=[
     {label:'HTML'},{label:'CSS'},{label:'JavaScript'},{label:'Python'},{label:'Java'},{label:'SQL'},{label:'Git'},
@@ -172,14 +149,13 @@ new IntersectionObserver(entries=>{if(entries[0].isIntersecting)document.querySe
   });
 })();
 
-/* PROJECTS */
 const projects=[
-  {icon:'🌱',th:'pt-1',cat:'Web · Agro Tech',title:'SeedTech',direct:true,img:'assets/images/seedtech.jpg',desc:'App para facilitar a vida do agricultor familiar com pedido de sementes integrado ao IPA e comunidade para troca de informações entre agricultores.',tags:['HTML','CSS','JavaScript','IPA'],github:'https://github.com/xandeezx/SeedTech',live:'https://xandeezx.github.io/SeedTech/'},
-  {icon:'⚡',th:'pt-2',cat:'React Native · Porto Digital',title:'AX Charge',imgContain:true,img:'assets/images/axcharge.jpg',desc:'App mobile de rotas para carros elétricos com mapa de postos de recarga, cálculo de autonomia e favoritos. Desenvolvido para o desafio do Porto Digital e Banco do Brasil.',tags:['React Native','Expo','TypeScript','Google Maps'],github:'https://github.com/Matheus13245/Projeto-PortoDigital',live:null},
-  {icon:'🎨',th:'pt-3',cat:'UI Design · Figma',title:'Portfólio Pixel Art',direct:true,img:'assets/images/pixelart.png',desc:'Portfólio pessoal criado no Figma com estética pixel art e fotos autorais tiradas em uma viagem a Salvador.',tags:['Figma','UI Design','Pixel Art','Design'],github:null,live:'https://www.figma.com/proto/fyPiCBirBNe94nVwqAGhq1/Portf%C3%B3lio?node-id=119-99&starting-point-node-id=119%3A99&scaling=contain&content-scaling=fixed&t=QfXvq6lnl9rV9dt8-1'},
+  {icon:'🌱',th:'pt-1',cat:'Web · Agro Tech',title:'SeedTech',direct:true,img:'assets/images/seedtech.jpg',desc:'App para facilitar a vida do agricultor familiar com pedido de sementes integrado ao IPA e comunidade para troca de informações entre agricultores.',tags:['HTML','CSS','JavaScript','IPA'],github:'https:
+  {icon:'⚡',th:'pt-2',cat:'React Native · Porto Digital',title:'AX Charge',imgContain:true,img:'assets/images/axcharge.jpg',desc:'App mobile de rotas para carros elétricos com mapa de postos de recarga, cálculo de autonomia e favoritos. Desenvolvido para o desafio do Porto Digital e Banco do Brasil.',tags:['React Native','Expo','TypeScript','Google Maps'],github:'https:
+  {icon:'🎨',th:'pt-3',cat:'UI Design · Figma',title:'Portfólio Pixel Art',direct:true,img:'assets/images/pixelart.png',desc:'Portfólio pessoal criado no Figma com estética pixel art e fotos autorais tiradas em uma viagem a Salvador.',tags:['Figma','UI Design','Pixel Art','Design'],github:null,live:'https:
 ];
 
-const arrowSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const arrowSvg = `<svg xmlns="http:
 const grid=document.getElementById('proj-grid');
 
 projects.forEach((p,i)=>{
@@ -209,7 +185,6 @@ projects.forEach((p,i)=>{
   new IntersectionObserver(entries=>{if(entries[0].isIntersecting)card.classList.add('in');},{threshold:0.1}).observe(card);
 });
 
-/* MODAL */
 function openModal(p){
   document.getElementById('m-icon').textContent=p.icon;
   document.getElementById('m-thumb').className=`modal-thumb ${p.th}`;
@@ -229,11 +204,10 @@ document.getElementById('m-close').addEventListener('click',closeModal);
 document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target.id==='modal-overlay')closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-/* THEME TOGGLE */
 const toggle = document.getElementById('theme-toggle');
 const icon   = document.getElementById('theme-icon');
-const sun  = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`;
-const moon = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>`;
+const sun  = `<svg xmlns="http:
+const moon = `<svg xmlns="http:
 const saved = localStorage.getItem('theme');
 if(saved === 'dark') { document.documentElement.setAttribute('data-theme','dark'); icon.innerHTML = sun; }
 toggle.addEventListener('click', () => {
@@ -249,10 +223,8 @@ toggle.addEventListener('click', () => {
   }
 });
 
-
-/* CARD GLOW EFFECT */
 function addGlow(cardEl) {
-  // Wrap card in a wrapper div for the glow
+  
   const wrap = document.createElement('div');
   wrap.className = 'proj-card-wrap';
   cardEl.parentNode.insertBefore(wrap, cardEl);
@@ -267,7 +239,6 @@ function addGlow(cardEl) {
   });
 }
 
-/* 3D TILT CARDS */
 function addTilt(selector) {
   document.querySelectorAll(selector).forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -293,48 +264,18 @@ function addTilt(selector) {
   });
 }
 
-// Apply tilt after cards are rendered
 setTimeout(() => {
   addTilt('.formation-card');
   addTilt('.skill-pill');
   document.querySelectorAll('.proj-card').forEach(addGlow);
 }, 500);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* CODE EDITOR ANIMATION */
 (function(){
   const linesEl = document.getElementById('ed-lines');
   const codeEl  = document.getElementById('ed-code');
   const posEl   = document.getElementById('ed-cursor-pos');
   if(!linesEl || !codeEl) return;
 
-  // Lines of code to type — real JS about Wesley
   const lines = [
     {html:'<span class="sy-kw">const</span> <span class="sy-fn">developer</span> <span class="sy-px">=</span> <span class="sy-px">{</span>'},
     {html:'  <span class="sy-prop">name</span><span class="sy-px">:</span> <span class="sy-str">"Wesley Telles"</span><span class="sy-px">,</span>'},
@@ -348,7 +289,7 @@ setTimeout(() => {
     {html:'  <span class="sy-prop">status</span><span class="sy-px">:</span> <span class="sy-str">"Buscando estágio 🎯"</span>'},
     {html:'<span class="sy-px">};</span>'},
     {html:''},
-    {html:'<span class="sy-cmt">// projetos reais 🚀</span>'},
+    {html:'<span class="sy-cmt">
     {html:'<span class="sy-fn">developer</span><span class="sy-px">.</span><span class="sy-fn">projects</span><span class="sy-px">.</span><span class="sy-fn">forEach</span><span class="sy-px">(</span><span class="sy-fn">build</span><span class="sy-px">);</span>'},
   ];
 
@@ -366,12 +307,12 @@ setTimeout(() => {
     linesEl.innerHTML = '';
     codeEl.innerHTML  = '';
     rendered.forEach((line, i) => {
-      // line number
+      
       const ln = document.createElement('div');
       ln.className = 'ed-ln' + (i === rendered.length-1 ? ' active' : '');
       ln.textContent = i + 1;
       linesEl.appendChild(ln);
-      // code line
+      
       const cl = document.createElement('div');
       cl.className = 'ed-line' + (i === rendered.length-1 ? ' current' : '');
       cl.innerHTML = line.html + (i === rendered.length-1 ? '<span class="ed-cursor"></span>' : '');
@@ -382,7 +323,7 @@ setTimeout(() => {
 
   function typeNextLine() {
     if(currentLine >= lines.length) {
-      // Pause then restart
+      
       setTimeout(() => {
         rendered = [];
         currentLine = 0;
