@@ -2,7 +2,7 @@
 
 Meu portfólio pessoal, desenvolvido do zero com HTML, CSS e JavaScript puro. Sem frameworks, sem dependências, só código.
 
-Acesse: [wesleytelles.netlify.app](https://wesleytelles.netlify.app)
+Acesse: [portfoliotelles.netlify.app](https://portfoliotelles.netlify.app)
 
 ---
 
