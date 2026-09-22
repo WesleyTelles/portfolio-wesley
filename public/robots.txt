@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfoliotelles.netlify.app/sitemap.xml

@@ -1,0 +1,133 @@
+---
+import { techGroups, certifications } from '../data/tech';
+---
+
+<section id="tech" class="tech">
+  <div class="wrap tech__grid">
+    <div>
+      <p class="eyebrow">03 — Tecnologias</p>
+      <h2 class="tech__title">Como construo</h2>
+
+      <div class="tech__groups" data-reveal>
+        {techGroups.map((group) => (
+          <div class="tech-group">
+            <h3>{group.label}</h3>
+            <ul>
+              {group.items.map((item) => (
+                <li>
+                  <span>{item.name}</span>
+                  {item.note && <em>{item.note}</em>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="certs" data-reveal>
+      <h3>Certificações</h3>
+      <ul>
+        {certifications.map((c) => (
+          <li>
+            <span class="certs__name">{c.name}</span>
+            <span class="certs__org">{c.org} · {c.year}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(32px, 6vw, 64px);
+  }
+
+  .tech__title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin: 8px 0 40px;
+  }
+
+  .tech__groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .tech-group h3 {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--signature);
+    margin: 0 0 16px;
+  }
+
+  .tech-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tech-group li {
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tech-group em {
+    font-style: normal;
+    color: var(--ink-dim);
+    font-size: 0.78rem;
+  }
+
+  .certs h3 {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+    margin: 0 0 16px;
+  }
+
+  .certs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .certs li {
+    padding-block: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .certs__name {
+    font-size: 0.92rem;
+  }
+
+  .certs__org {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 860px) {
+    .tech__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tech__groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

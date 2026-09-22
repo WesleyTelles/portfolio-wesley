@@ -1,0 +1,51 @@
+---
+---
+
+<section id="about" class="about">
+  <div class="wrap about__grid">
+    <div>
+      <p class="eyebrow">02 — Sobre</p>
+      <h2 class="about__title">Trajetória</h2>
+    </div>
+    <div class="about__copy" data-reveal>
+      <p>
+        Sou Software Developer, no 4º período de Análise e Desenvolvimento de Sistemas na Faculdade Senac.
+        Hoje atuo profissionalmente na Red Media, no desenvolvimento mobile do Tipsteria com Flutter e Dart,
+        e construo projetos frontend/fullstack em paralelo — AX Charge e BUCK fazem parte dessa construção.
+      </p>
+      <p>
+        Antes da tecnologia, tive experiência profissional em logística — estoque, conferência físico x sistema,
+        organização operacional. Foi o que me abriu a cabeça para o mundo profissional, mas hoje minha identidade
+        é development: penso e construo produto através de código.
+      </p>
+      <p>
+        Uso ferramentas de IA (Claude Code, GitHub Copilot) como parte do meu processo — não como meu trabalho.
+        Meu trabalho é desenvolver software real, aprender rápido e evoluir de frontend para fullstack.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(32px, 6vw, 64px);
+  }
+
+  .about__title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-top: 8px;
+  }
+
+  .about__copy p {
+    max-width: 60ch;
+    font-size: 1.02rem;
+  }
+
+  @media (max-width: 720px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
