@@ -1,0 +1,190 @@
+---
+const links = [
+  { href: '#projects', label: 'Projetos' },
+  { href: '#about', label: 'Sobre' },
+  { href: '#tech', label: 'Tecnologias' },
+  { href: '#contact', label: 'Contato' },
+];
+---
+
+<header class="header">
+  <div class="wrap header__row">
+    <a href="#top" class="header__mark">WT</a>
+
+    <nav class="header__nav" id="primary-nav" data-open="false">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Alternar tema" aria-pressed="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+        </svg>
+      </button>
+      <button
+        id="nav-toggle"
+        class="icon-btn header__burger"
+        type="button"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .header__mark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  .header__nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__nav a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: var(--ink);
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+  }
+
+  .header__nav a:hover {
+    opacity: 1;
+    color: var(--signature);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--signature);
+    color: var(--signature);
+  }
+
+  .header__burger {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .header__burger {
+      display: inline-flex;
+    }
+
+    .header__nav {
+      position: fixed;
+      inset: 72px 0 0 0;
+      background: var(--bg);
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .header__nav[data-open='true'] {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .header__nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: 24px var(--gutter);
+    }
+
+    .header__nav li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header__nav a {
+      display: block;
+      padding: 18px 4px;
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('primary-nav');
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = nav?.getAttribute('data-open') === 'true';
+    nav?.setAttribute('data-open', String(!isOpen));
+    navToggle.setAttribute('aria-expanded', String(!isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Abrir menu de navegação' : 'Fechar menu de navegação');
+  });
+
+  nav?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      nav.setAttribute('data-open', 'false');
+      navToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  function applyTheme(theme: string) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    themeToggle?.setAttribute('aria-pressed', String(theme === 'light'));
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    applyTheme(current === 'light' ? 'dark' : 'light');
+  });
+</script>

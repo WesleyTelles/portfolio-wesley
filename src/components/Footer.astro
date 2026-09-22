@@ -1,0 +1,37 @@
+---
+import SocialCards from './SocialCards.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__row">
+    <div class="footer__meta">
+      <span>© {year} Wesley Telles</span>
+      <span>Software Developer</span>
+    </div>
+    <SocialCards />
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 32px;
+  }
+
+  .footer__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+  }
+</style>
