@@ -1,0 +1,6 @@
+.agents/
+
+# Astro / build
+node_modules/
+dist/
+.astro/
