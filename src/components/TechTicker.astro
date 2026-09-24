@@ -1,0 +1,81 @@
+---
+import { tickerStack } from '../data/tech';
+---
+
+<div class="ticker" role="region" aria-label="Tecnologias que utilizo">
+  <div class="ticker__track">
+    {[0, 1].map((copy) => (
+      <ul class="ticker__list" aria-hidden={copy === 1}>
+        {tickerStack.map((t) => (
+          <li class="ticker__item">
+            <span class="ticker__dot" style={`background:${t.color}`}></span>
+            <span>{t.name}</span>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker {
+    position: relative;
+    overflow: hidden;
+    padding-block: 28px;
+    border-bottom: 1px solid var(--border);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 32s linear infinite;
+  }
+
+  .ticker:hover .ticker__track {
+    animation-play-state: paused;
+  }
+
+  .ticker__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ticker__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 28px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--ink-dim);
+    white-space: nowrap;
+  }
+
+  .ticker__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker__track {
+      animation: none;
+    }
+
+    .ticker__list[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>

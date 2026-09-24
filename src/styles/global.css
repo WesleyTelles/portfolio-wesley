@@ -3,7 +3,7 @@
   --bg: #0b0c0a;
   --bg-raised: #131410;
   --ink: #f2f1ec;
-  --ink-dim: #6e6d64;
+  --ink-dim: #8f8e83;
   --signature: #c8ff4d;
   --signature-dim: #8fb838;
   --accent: #5e3a87;
@@ -23,6 +23,8 @@
   --bg-raised: #ffffff;
   --ink: #0b0c0a;
   --ink-dim: #6e6d64;
+  --signature: #567411;
+  --signature-dim: #445c0d;
   --border: #dedcd1;
   color-scheme: light;
 }
@@ -94,6 +96,16 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 0.8rem;
   color: var(--ink-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow__icon {
+  width: 15px;
+  height: 15px;
+  color: var(--signature);
+  flex-shrink: 0;
 }
 
 section {

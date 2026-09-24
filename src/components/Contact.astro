@@ -1,33 +1,47 @@
 ---
+import Icon from './Icon.astro';
+
 const email = 'wesleytellesbr@gmail.com';
 ---
 
 <section id="contact" class="contact">
   <div class="wrap contact__grid">
     <div>
-      <p class="eyebrow">04 — Contato</p>
+      <p class="eyebrow"><Icon name="contact" class="eyebrow__icon" />04. Contato</p>
       <h2 class="contact__title">Vamos conversar</h2>
       <p class="contact__lede">
-        Aberto a oportunidades de estágio e desenvolvimento — frontend hoje, fullstack em construção.
+        Aberto a oportunidades de estágio e desenvolvimento: frontend hoje, fullstack em construção.
       </p>
     </div>
 
     <div class="contact__actions" data-reveal>
       <a class="contact__link" href={`mailto:${email}`}>
-        <span>E-mail</span>
-        <strong>{email} ↗</strong>
+        <span class="contact__text">
+          <span>E-mail</span>
+          <strong>{email}</strong>
+        </span>
+        <Icon name="arrow-up-right" class="contact__icon" />
       </a>
       <a class="contact__link" href="https://linkedin.com/in/wesley-telles" target="_blank" rel="noopener noreferrer">
-        <span>LinkedIn</span>
-        <strong>linkedin.com/in/wesley-telles ↗</strong>
+        <span class="contact__text">
+          <span>LinkedIn</span>
+          <strong>linkedin.com/in/wesley-telles</strong>
+        </span>
+        <Icon name="arrow-up-right" class="contact__icon" />
       </a>
       <a class="contact__link" href="https://github.com/WesleyTelles" target="_blank" rel="noopener noreferrer">
-        <span>GitHub</span>
-        <strong>github.com/WesleyTelles ↗</strong>
+        <span class="contact__text">
+          <span>GitHub</span>
+          <strong>github.com/WesleyTelles</strong>
+        </span>
+        <Icon name="arrow-up-right" class="contact__icon" />
       </a>
       <a class="contact__link" href="/assets/cv.pdf" download="Wesley_Telles_CV.pdf">
-        <span>Currículo</span>
-        <strong>Baixar CV (PDF) ↓</strong>
+        <span class="contact__text">
+          <span>Currículo</span>
+          <strong>Baixar CV (PDF)</strong>
+        </span>
+        <Icon name="download" class="contact__icon" />
       </a>
     </div>
   </div>
@@ -57,12 +71,33 @@ const email = 'wesleytellesbr@gmail.com';
 
   .contact__link {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     padding-block: 18px;
     border-top: 1px solid var(--border);
     text-decoration: none;
     color: var(--ink);
+  }
+
+  .contact__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact__link :global(.contact__icon) {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--ink-dim);
+    transform: translate(0, 0);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease;
+  }
+
+  .contact__link:hover :global(.contact__icon) {
+    color: var(--signature);
+    transform: translate(3px, -3px);
   }
 
   .contact__link:last-child {

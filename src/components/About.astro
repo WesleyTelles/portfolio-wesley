@@ -1,36 +1,78 @@
 ---
+import Icon from './Icon.astro';
+
+type Marker = 'filled' | 'outline' | 'pending';
+
+interface Milestone {
+  label: string;
+  title: string;
+  copy: string;
+  marker: Marker;
+}
+
+const milestones: Milestone[] = [
+  {
+    label: 'Origem',
+    title: 'Logística',
+    copy: 'Estoque, conferência físico x sistema, organização operacional.',
+    marker: 'outline',
+  },
+  {
+    label: 'Virada',
+    title: 'ADS na Senac',
+    copy: 'Migração para tecnologia: início da Análise e Desenvolvimento de Sistemas.',
+    marker: 'outline',
+  },
+  {
+    label: 'Hoje',
+    title: 'Red Media',
+    copy: 'Frontend mobile no Tipsteria, com Flutter e Dart.',
+    marker: 'filled',
+  },
+  {
+    label: 'Em paralelo',
+    title: 'Projetos reais',
+    copy: 'AX Charge, BUCK e Quantum Algorithm Library.',
+    marker: 'outline',
+  },
+  {
+    label: 'Próximo passo',
+    title: 'Fullstack',
+    copy: 'Evolução de frontend para fullstack: a trajetória continua.',
+    marker: 'pending',
+  },
+];
 ---
 
 <section id="about" class="about">
-  <div class="wrap about__grid">
-    <div>
-      <p class="eyebrow">02 — Sobre</p>
+  <div class="wrap">
+    <div class="about__head">
+      <p class="eyebrow"><Icon name="path" class="eyebrow__icon" />02. Sobre</p>
       <h2 class="about__title">Trajetória</h2>
-    </div>
-    <div class="about__copy" data-reveal>
-      <p>
-        Sou Software Developer, no 4º período de Análise e Desenvolvimento de Sistemas na Faculdade Senac.
-        Hoje atuo profissionalmente na Red Media, no desenvolvimento mobile do Tipsteria com Flutter e Dart,
-        e construo projetos frontend/fullstack em paralelo — AX Charge e BUCK fazem parte dessa construção.
-      </p>
-      <p>
-        Antes da tecnologia, tive experiência profissional em logística — estoque, conferência físico x sistema,
-        organização operacional. Foi o que me abriu a cabeça para o mundo profissional, mas hoje minha identidade
-        é development: penso e construo produto através de código.
-      </p>
-      <p>
-        Uso ferramentas de IA (Claude Code, GitHub Copilot) como parte do meu processo — não como meu trabalho.
-        Meu trabalho é desenvolver software real, aprender rápido e evoluir de frontend para fullstack.
+      <p class="about__intro">
+        Sou Software Developer: penso e construo produto através de código. Uso ferramentas de IA
+        (Claude Code, GitHub Copilot) como parte do meu processo, não como meu trabalho. Meu trabalho
+        é desenvolver software real, aprender rápido e evoluir de frontend para fullstack.
       </p>
     </div>
+
+    <ol class="timeline" data-reveal>
+      <li class="timeline__connector" aria-hidden="true"></li>
+      {milestones.map((m) => (
+        <li class:list={['milestone', `milestone--${m.marker}`]}>
+          <span class="milestone__marker" aria-hidden="true"></span>
+          <p class="milestone__label">{m.label}</p>
+          <h3 class="milestone__title">{m.title}</h3>
+          <p class="milestone__copy">{m.copy}</p>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
 
 <style>
-  .about__grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: clamp(32px, 6vw, 64px);
+  .about__head {
+    max-width: 62ch;
   }
 
   .about__title {
@@ -38,14 +80,126 @@
     margin-top: 8px;
   }
 
-  .about__copy p {
-    max-width: 60ch;
-    font-size: 1.02rem;
+  .about__intro {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    max-width: 58ch;
   }
 
-  @media (max-width: 720px) {
-    .about__grid {
+  .timeline {
+    position: relative;
+    list-style: none;
+    margin: clamp(48px, 8vw, 88px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .timeline__connector {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 150ms;
+  }
+
+  .timeline.is-visible .timeline__connector {
+    transform: scaleX(1);
+  }
+
+  .milestone {
+    position: relative;
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .milestone__marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--ink-dim);
+  }
+
+  .milestone--filled .milestone__marker {
+    background: var(--signature);
+    border-color: var(--signature);
+  }
+
+  .milestone--pending .milestone__marker {
+    border-style: dashed;
+    border-color: var(--ink-dim);
+  }
+
+  .milestone__label {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    margin: 0 0 6px;
+  }
+
+  .milestone--filled .milestone__label {
+    color: var(--signature);
+  }
+
+  .milestone__title {
+    font-size: 1.05rem;
+    margin: 0 0 8px;
+  }
+
+  .milestone__copy {
+    font-size: 0.85rem;
+    max-width: 26ch;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .timeline {
       grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .timeline__connector {
+      grid-row: unset;
+      top: 0;
+      bottom: 0;
+      left: 7px;
+      right: auto;
+      width: 1px;
+      height: auto;
+      transform: scaleY(0);
+      transform-origin: top center;
+    }
+
+    .timeline.is-visible .timeline__connector {
+      transform: scaleY(1);
+    }
+
+    .milestone {
+      padding-top: 0;
+      padding-left: 32px;
+    }
+
+    .milestone__marker {
+      top: 3px;
+      left: 0;
+    }
+
+    .milestone__copy {
+      max-width: 44ch;
     }
   }
 </style>

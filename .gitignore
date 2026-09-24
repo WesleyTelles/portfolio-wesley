@@ -1,4 +1,5 @@
 .agents/
+.claude/
 
 # Astro / build
 node_modules/
