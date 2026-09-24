@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import portrait from '../assets/images/wesley-portrait.png';
 ---
 
 <section id="top" class="hero">
@@ -10,7 +13,7 @@
         <span class="hero-enter" style="--d: 160ms">Telles<span class="hero__dot">.</span></span>
       </h1>
       <p class="hero__lede hero-enter" style="--d: 260ms">
-        Construo interfaces e produtos reais — hoje em frontend na Red Media, evoluindo para fullstack.
+        Construo interfaces e produtos reais: hoje em frontend na Red Media, evoluindo para fullstack.
         Projetos aplicados, não teoria de curso.
       </p>
       <div class="hero__cta hero-enter" style="--d: 340ms">
@@ -21,16 +24,22 @@
 
     <div class="hero__portrait hero-enter-portrait">
       <div class="hero__halo" aria-hidden="true"></div>
-      <img
+      <Image
         class="hero__photo"
-        src="/assets/images/wesley-portrait.png"
+        src={portrait}
         alt="Retrato de Wesley Telles"
-        width="768"
-        height="1344"
+        widths={[400, 768]}
+        sizes="(max-width: 860px) 100vw, 500px"
+        format="webp"
+        quality={82}
         fetchpriority="high"
       />
     </div>
   </div>
+
+  <a href="#projects" class="hero__scroll-cue hero-enter" style="--d: 600ms" aria-label="Rolar até projetos">
+    <Icon name="scroll" class="hero__scroll-icon" />
+  </a>
 </section>
 
 <style>
@@ -82,7 +91,7 @@
 
   .btn--solid {
     background: var(--signature);
-    color: #0b0c0a;
+    color: var(--bg);
   }
 
   .btn--solid:hover {
@@ -138,6 +147,40 @@
     .hero__portrait {
       order: -1;
       aspect-ratio: 16 / 10;
+    }
+  }
+
+  .hero__scroll-cue {
+    display: flex;
+    justify-content: center;
+    padding-block: 40px 8px;
+    color: var(--ink-dim);
+    transition: color 200ms ease;
+  }
+
+  .hero__scroll-cue:hover {
+    color: var(--signature);
+  }
+
+  .hero__scroll-cue :global(.hero__scroll-icon) {
+    width: 22px;
+    height: 22px;
+    animation: scroll-bob 2.4s ease-in-out infinite;
+  }
+
+  @keyframes scroll-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-cue :global(.hero__scroll-icon) {
+      animation: none;
     }
   }
 

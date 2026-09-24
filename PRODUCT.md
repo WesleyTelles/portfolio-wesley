@@ -31,19 +31,19 @@ Site estático de página única, hospedado no Netlify (`portfoliotelles.netlify
 - Sem servidor/backend: todo o conteúdo (projetos, certificações, skills) deve poder ser editado como dados estáticos (arquivos), sem exigir infraestrutura adicional.
 - Deploy deve continuar simples via CDN estática (Netlify ou equivalente), sem exigir servidor dedicado.
 - Mantenedor único, não desenvolvedor sênior ainda — a arquitetura deve favorecer facilidade de manutenção futura (adicionar projeto = adicionar arquivo de dados, não editar lógica).
-- Conteúdo real confirmado: 3 projetos (SeedTech, AX Charge, Portfólio Pixel Art em Figma), 7 certificações, bio pessoal completa, CV em PDF. Não fabricar projetos, métricas ou testemunhos além do que já existe.
+- Conteúdo real confirmado: 3 projetos (AX Charge, BUCK, Quantum Algorithm Library), 7 certificações, bio pessoal completa, CV em PDF. Não fabricar projetos, métricas ou testemunhos além do que já existe.
 - Tema claro/escuro é um requisito confirmado a preservar.
 
 ## Brand Commitments
 
-Nome: Wesley Telles. Identidade visual atual usa paleta azul-violeta (`#3D52D5`) sobre fundo claro/escuro alternável, tipografia Bricolage Grotesque (títulos) + DM Sans (corpo), e um elemento de assinatura visual de "pixel art" associado ao autor — este elemento deve ser preservado conceitualmente (reformulado, não descartado) por já funcionar como diferenciação pessoal.
+Nome: Wesley Telles. Identidade visual atual ("Drop"): fundo escuro `#0B0C0A` com verde-neon de assinatura `#C8FF4D` (tema claro usa uma variante mais escura/saturada da mesma cor para manter contraste), tipografia Unbounded (display/títulos) + Instrument Sans (corpo). Elemento de assinatura visual: retrato pessoal tratado com halo de luz na cor de assinatura, no hero.
 
 ## Evidence on Hand
 
-- **Projetos (3, reais, com repositório/link):**
-  1. SeedTech — app web para agricultores familiares, integração com IPA — https://xandeezx.github.io/SeedTech/
-  2. AX Charge — app mobile de rotas para carros elétricos, desenvolvido para o desafio Porto Digital × Banco do Brasil — https://github.com/Matheus13245/Projeto-PortoDigital
-  3. Portfólio Pixel Art — design de UI em Figma com estética pixel art — https://www.figma.com/proto/fyPiCBirBNe94nVwqAGhq1/Portf%C3%B3lio
+- **Projetos (3, reais):**
+  1. AX Charge — app de rotas para carros elétricos, em parceria com o Porto Digital e o Banco do Brasil (Residência Tecnológica RISEUP 2025.02) — https://github.com/Matheus13245/Projeto-PortoDigital
+  2. BUCK — projeto acadêmico na Faculdade Senac (Projet Aí 2026.1), 1º lugar e Projeto Destaque. Imagem/link pendente.
+  3. Quantum Algorithm Library — plataforma de organização/recomendação de algoritmos quânticos, em parceria com a Accenture e o Porto Digital.
 - **Certificações (7):** SENAC RiseUp/Rocketseat, GitHub Copilot/CESAR School, Design Thinking/SEBRAE, HTML e CSS/Alura, Lógica de Programação/Fundação Bradesco, IA e Regulação/TIC em Trilhas, Psicologia Aplicada a UX/TIC em Trilhas.
 - **CV:** `assets/cv.pdf` (Wesley_Telles_CV.pdf).
 - **Contato:** e-mail (wesleytellesbr@gmail.com), LinkedIn (linkedin.com/in/wesley-telles), GitHub (github.com/WesleyTelles).

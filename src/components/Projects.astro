@@ -1,19 +1,35 @@
 ---
+import { Image } from 'astro:assets';
 import { projects } from '../data/projects';
+import Icon from './Icon.astro';
+
+const projectImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/projects/*',
+  { eager: true }
+);
+
+function resolveImage(filename?: string) {
+  if (!filename) return undefined;
+  return projectImages[`/src/assets/images/projects/${filename}`]?.default;
+}
 ---
 
 <section id="projects" class="projects">
   <div class="wrap">
-    <p class="eyebrow">01 — Projetos</p>
+    <p class="eyebrow"><Icon name="case" class="eyebrow__icon" />01. Projetos</p>
     <h2 class="projects__title">O que já construí</h2>
 
     <div class="projects__list">
-      {projects.map((p, i) => (
+      {projects.map((p, i) => {
+        const resolvedImage = resolveImage(p.image);
+        return (
         <article class="project" id={p.slug} data-reveal>
           <div class="project__shot">
             {p.imageKind === 'concept' ? (
               <div class="cover-frame">
-                <img src={p.image} alt={`Imagem conceitual do projeto ${p.name}`} loading="lazy" />
+                {resolvedImage && (
+                  <Image src={resolvedImage} alt={`Imagem conceitual do projeto ${p.name}`} loading="lazy" widths={[400, 718]} sizes="(max-width: 780px) 100vw, 50vw" format="webp" quality={80} />
+                )}
                 <span class="cover-frame__tag">Imagem conceitual</span>
               </div>
             ) : (
@@ -25,8 +41,8 @@ import { projects } from '../data/projects';
                   <span class="browser-frame__url">{p.domain}</span>
                 </div>
                 <div class="browser-frame__viewport">
-                  {p.image ? (
-                    <img src={p.image} alt={`Tela do projeto ${p.name}`} loading="lazy" />
+                  {resolvedImage ? (
+                    <Image src={resolvedImage} alt={`Tela do projeto ${p.name}`} loading="lazy" widths={[400, 718]} sizes="(max-width: 780px) 100vw, 50vw" format="webp" quality={80} />
                   ) : (
                     <div class="browser-frame__placeholder">
                       <span class="browser-frame__placeholder-index">{String(i + 1).padStart(2, '0')}</span>
@@ -70,13 +86,17 @@ import { projects } from '../data/projects';
             {p.links.length > 0 && (
               <div class="project__links">
                 {p.links.map((l) => (
-                  <a href={l.url} target="_blank" rel="noopener noreferrer">{l.label} ↗</a>
+                  <a class="project__link" href={l.url} target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                    <Icon name="arrow-up-right" class="project__link-icon" />
+                  </a>
                 ))}
               </div>
             )}
           </div>
         </article>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
@@ -318,11 +338,25 @@ import { projects } from '../data/projects';
     gap: 20px;
   }
 
-  .project__links a {
+  .project__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: var(--signature);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
+  }
+
+  .project__link :global(.project__link-icon) {
+    width: 14px;
+    height: 14px;
+    transform: translate(0, 0);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .project__link:hover :global(.project__link-icon) {
+    transform: translate(2px, -2px);
   }
 
   @media (max-width: 780px) {

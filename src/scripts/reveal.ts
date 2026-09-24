@@ -19,6 +19,13 @@ if (!prefersReducedMotion) {
     el.style.transitionDelay = `${Math.min(i % 3, 2) * 80}ms`;
     observer.observe(el);
   });
+
+  // Fallback: garante que nenhuma seção fique invisível para sempre — cobre
+  // navegação direta por âncora, leitores de tela e qualquer falha do IntersectionObserver.
+  window.setTimeout(() => {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    observer.disconnect();
+  }, 2500);
 } else {
   document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
 }
