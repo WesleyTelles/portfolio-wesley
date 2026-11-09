@@ -119,8 +119,17 @@ const st = cfg => cfg;   /* ScrollTrigger configs are passed straight through; t
 function revealFrom(targets, vars, trigger, start) {
   /* a paused timeline (not a paused tween): with "stagger", paused would be applied to the children and they would never run */
   const tl = gsap.timeline({ paused: true });
-  tl.from(targets, { ...vars, immediateRender: true });
-  ScrollTrigger.create({ trigger, start, end: '+=999999', onEnter: () => tl.play() });
+  /* fromTo with explicit end values: if an earlier init already left inline styles (opacity 0), a plain from() would read them as the end state */
+  const to = { overwrite: 'auto' }, from = {};
+  for (const k in vars) {
+    if (k in { opacity: 1, x: 1, y: 1, scale: 1, scaleX: 1, scaleY: 1, xPercent: 1, yPercent: 1 }) { from[k] = vars[k]; to[k] = (k === 'opacity' || k.startsWith('scale')) ? 1 : 0; }
+    else to[k] = vars[k];
+  }
+  tl.fromTo(targets, from, to);
+  gsap.set(targets, from);
+  let played = false;
+  const go = () => { if (!played) { played = true; tl.play(); } };
+  ScrollTrigger.create({ trigger, start, end: '+=999999', onEnter: go, onUpdate: self => { if (self.progress > 0) go(); } });
   return tl;
 }
 
