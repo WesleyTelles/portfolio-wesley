@@ -289,7 +289,7 @@ function initSeq() {
   fr.slice(1).forEach((f, i) => {
     tl.to(f, { yPercent: 0, duration: 1 }, i * 1.25);
     tl.to(fr[i], { scale: .93, opacity: .55, duration: 1 }, i * 1.25);
-    tl.fromTo($('.seq-i', f), { yPercent: 16 }, { yPercent: 0, duration: 1 }, i * 1.25);
+    tl.fromTo($('.seq-i', f), { yPercent: 10 }, { yPercent: 0, duration: 1 }, i * 1.25);
   });
 }
 

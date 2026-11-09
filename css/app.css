@@ -456,14 +456,18 @@ h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
 /* ============ pinned scroll showcase: each screen slides up over the last, on its own colour ============ */
 .seq{position:relative;z-index:2;height:calc(var(--n)*85vh);margin:6vh 0}
 .seq-pin{position:sticky;top:0;display:grid;place-items:center;height:var(--inner-h,100vh);padding:0 16px}
-.seq-stage{position:relative;width:min(1100px,100%);height:min(78%,640px);overflow:hidden;border-radius:6px;border:1px solid var(--line);background:#0f0f0f}
+.seq-stage{position:relative;width:min(1100px,100%);height:min(88%,700px);overflow:hidden;border-radius:6px;border:1px solid var(--line);background:#0f0f0f}
 .seq-f{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;margin:0;padding:0 6%;background:var(--c);color:#0f0f0f;will-change:transform}
 .seq-f figcaption span{display:block;margin-bottom:14px;font:500 12px/1 var(--font-body);opacity:.6}
 .seq-f h3{font:400 clamp(30px,5vw,68px)/1 var(--font-display);letter-spacing:-.05em;text-transform:lowercase}
-.seq-i{align-self:end;justify-self:center;height:88%;display:flex;align-items:flex-end}
-.seq-i img{height:100%;width:auto;border-radius:22px 22px 0 0;border:6px solid #0f0f0f;border-bottom:0;box-shadow:0 30px 70px rgba(0,0,0,.35)}
-@media (max-width:767px){.seq-f{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:6% 6% 0}.seq-i{height:100%}.seq-stage{height:84%}}
+.seq-i{align-self:center;justify-self:center;height:90%;display:flex;align-items:center}
+.seq-i img{height:100%;width:auto;border-radius:26px;border:5px solid #0f0f0f;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+@media (max-width:767px){.seq-f{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:6% 6% 0}.seq-i{height:96%;padding-bottom:4%}.seq-stage{height:88%}}
 
 /* ============ up next ============ */
 .upnext{position:relative;z-index:2;padding:12vh 16px 4vh}
 .upnext .title-2{margin:0 0 6vh;text-align:center;font:400 clamp(34px,5vw,64px)/1.05 var(--font-display);letter-spacing:-.045em}
+.seq-f{grid-template-rows:100%}
+.seq-i{min-height:0;max-height:90%}
+.seq-i img{max-height:100%;object-fit:contain}
+@media (max-width:767px){.seq-f{grid-template-rows:auto minmax(0,1fr)}}
