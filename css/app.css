@@ -471,3 +471,18 @@ h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
 .seq-i{min-height:0;max-height:90%}
 .seq-i img{max-height:100%;object-fit:contain}
 @media (max-width:767px){.seq-f{grid-template-rows:auto minmax(0,1fr)}}
+
+/* ============ iPhone mockup (pure CSS): titanium frame, dynamic island, side buttons, home bar ============ */
+.dev{position:relative;height:100%;aspect-ratio:.6;padding:2.6%;border-radius:15% / 7%;
+  background:linear-gradient(145deg,#4a4a4e 0%,#1b1b1d 38%,#0b0b0c 62%,#3a3a3d 100%);
+  box-shadow:0 0 0 1.5px #5a5a5e inset,0 0 0 3px #0b0b0c inset,0 40px 80px rgba(0,0,0,.45),0 10px 24px rgba(0,0,0,.3)}
+.dev::before{content:"";position:absolute;left:-2.5px;top:16%;width:3px;height:6%;border-radius:2px 0 0 2px;background:#2c2c2f;
+  box-shadow:0 11.5vh 0 #2c2c2f,0 0 0 0 transparent}
+.dev::after{content:"";position:absolute;right:-2.5px;top:24%;width:3px;height:11%;border-radius:0 2px 2px 0;background:#2c2c2f}
+.dev-s{position:relative;display:flex;flex-direction:column;height:100%;padding:9.5% 0 4%;overflow:hidden;border-radius:12.5% / 5.8%;background:#101010}
+.dev-s::before{content:"";position:absolute;z-index:2;left:50%;top:2.1%;width:27%;height:3.4%;transform:translateX(-50%);border-radius:99px;background:#000}
+.dev-s::after{content:"";position:absolute;z-index:2;left:50%;bottom:1.3%;width:34%;height:.7%;transform:translateX(-50%);border-radius:99px;background:rgba(255,255,255,.55)}
+.dev-s img{flex:1;min-height:0;width:100%;height:auto;border:0;border-radius:0;box-shadow:none;object-fit:cover;object-position:top}
+.seq-i .dev{height:100%}
+.seq-i{height:92%;max-height:92%}
+.seq-i img{border:0;border-radius:0;box-shadow:none;max-height:none;object-fit:cover}
