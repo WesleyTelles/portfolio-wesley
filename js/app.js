@@ -220,7 +220,7 @@ function initAbout() {
   const h1 = $('h1', hero), p = $('p', hero);
   [h1, p].forEach(splitWords);
   whenRevealed(() => {
-    gsap.from($$('.wi', h1), { yPercent: 115, duration: 1.2, stagger: .06, ease: 'power4.out' });
+    gsap.from($$('.wi', h1), { yPercent: 115, filter: 'blur(14px)', duration: 1.2, stagger: .06, ease: 'power4.out', clearProps: 'filter' });
     gsap.from([$('.eyebrow', hero), p], { opacity: 0, y: 16, duration: .9, stagger: .18, delay: .35, ease: 'power3.out' });
     gsap.from(hl, { scaleY: 0, transformOrigin: 'top', duration: 1.2, delay: .8, ease: 'power3.out' });
   });
@@ -248,12 +248,48 @@ function initGhost() {
     scrollTrigger: st({ trigger: content, start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }) });
 }
 
-/* project rows: each enters in turn and its tags appear one after another */
+/* project rows: each enters in turn, its tags appear one after another, and the preview window pops in and follows the cursor */
 function initRows() {
   if (!gsapOK() || reduce) return;
+  const fine = matchMedia('(hover:hover)').matches;
   $$('.prow').forEach(row => {
     revealFrom(row, { opacity: 0, y: 50, duration: .9, ease: 'power3.out' }, row, 'top 94%');
     revealFrom($$('.chips li', row), { opacity: 0, y: 8, duration: .5, stagger: .08, ease: 'power2.out', delay: .25 }, row, 'top 90%');
+    const prev = $('.prev', row), win = $('.pwin', row);
+    if (!prev || !fine) return;
+    gsap.set(prev, { yPercent: -50, opacity: 0 });
+    const qx = gsap.quickTo(win, 'x', { duration: .6, ease: 'power3.out' });
+    const qy = gsap.quickTo(win, 'y', { duration: .6, ease: 'power3.out' });
+    const qr = gsap.quickTo(win, 'rotation', { duration: .8, ease: 'power3.out' });
+    row.addEventListener('mouseenter', () => {
+      gsap.fromTo(prev, { opacity: 0 }, { opacity: 1, duration: .35, ease: 'power2.out', overwrite: 'auto' });
+      gsap.fromTo(win, { scale: .82, clipPath: 'inset(0 0 100% 0)' }, { scale: 1, clipPath: 'inset(0 0 0% 0)', duration: .75, ease: 'expo.out', overwrite: 'auto' });
+    });
+    row.addEventListener('mousemove', e => {
+      const r = row.getBoundingClientRect();
+      qx((e.clientX - (r.left + r.width * .75)) * .06);
+      qy((e.clientY - (r.top + r.height / 2)) * .35);
+      qr((e.clientX - (r.left + r.width * .75)) * .012);
+    });
+    row.addEventListener('mouseleave', () => {
+      gsap.to(prev, { opacity: 0, duration: .3, ease: 'power2.in', overwrite: 'auto' });
+      gsap.to(win, { scale: .94, duration: .45, ease: 'power3.in', overwrite: 'auto' });
+      qx(0); qy(0); qr(0);
+    });
+  });
+}
+
+/* pinned showcase: every screen slides up over the previous one while the scroll keeps going down */
+function initSeq() {
+  const sec = $('[data-seq]');
+  if (!sec || !gsapOK() || reduce) return;
+  const fr = $$('.seq-f', sec);
+  gsap.set(fr.slice(1), { yPercent: 100 });
+  const tl = gsap.timeline({ scrollTrigger: st({ trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .6 }), defaults: { ease: 'none' } });
+  fr.slice(1).forEach((f, i) => {
+    tl.to(f, { yPercent: 0, duration: 1 }, i * 1.25);
+    tl.to(fr[i], { scale: .93, opacity: .55, duration: 1 }, i * 1.25);
+    tl.fromTo($('.seq-i', f), { yPercent: 16 }, { yPercent: 0, duration: 1 }, i * 1.25);
   });
 }
 
@@ -270,6 +306,8 @@ function initProject() {
   /* the project image rises into place as it is scrolled to */
   const shot = $('[data-hshot]');
   if (shot) gsap.fromTo(shot, { y: 160, opacity: .35 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: st({ trigger: shot, start: 'top 108%', end: 'top 50%', scrub: .7 }) });
+  initSeq();
+  initRows();
   const fields = $$('.pi-f');
   if (fields.length) revealFrom(fields, { opacity: 0, y: 24, duration: .8, stagger: .1, ease: 'power3.out' }, $('.pinfo'), 'top 85%');
 }

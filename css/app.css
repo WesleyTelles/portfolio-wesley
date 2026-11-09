@@ -405,8 +405,8 @@ h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
 .prow:hover h3,.prow:hover .chips{transform:translateX(-52px)}
 .prow:hover .yr{color:#fff}
 .prow:hover .yr .arr{width:11px;opacity:1}
-.prev{position:absolute;right:11%;top:50%;z-index:3;width:43%;opacity:0;pointer-events:none;transform:translateY(-50%) scale(.94);transition:opacity .45s var(--ease),transform .6s var(--expo)}
-.prow:hover .prev,.prow:focus-visible .prev{opacity:1;transform:translateY(-50%) scale(1)}
+.prev{position:absolute;right:9%;top:50%;z-index:3;width:44%;opacity:0;pointer-events:none;transform:translateY(-50%)}
+.prow:hover .prev,.prow:focus-visible .prev{opacity:1}
 .prev .pshot{transform:none;aspect-ratio:16/9;box-shadow:0 20px 50px rgba(0,0,0,.5);transition:none}
 .prev .pshot-b b{font-size:clamp(14px,2.2vw,30px)}
 .prev .pshot-b p{font-size:clamp(7px,.8vw,11px)}
@@ -439,3 +439,31 @@ h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
 .chips.col{flex-direction:column;align-items:flex-start;margin-top:10px}
 .pi-r .btn{margin-top:4px}
 @media (max-width:767px){.pi-grid{grid-template-columns:1fr;gap:0}}
+
+/* ============ hover preview: a small window that pops in and drifts with the cursor ============ */
+.pwin{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#0f0f0f;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03);will-change:transform}
+.pwin-h{display:flex;align-items:center;gap:5px;height:18px;padding:0 8px;border-bottom:1px solid var(--line);background:#141414;font-size:8px;color:var(--mute)}
+.pwin-h i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.pwin-h span{margin-left:6px}
+.pwin .pshot{border:0;border-radius:0;aspect-ratio:16/9;box-shadow:none}
+.pshot-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:6% 7%;
+  background:radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--accent) 28%,transparent),transparent 60%),#0f0f0f}
+.pshot-card b{font:400 clamp(20px,3vw,40px)/1 var(--font-display);letter-spacing:-.045em;color:#fff}
+.pshot-card p{max-width:30em;font-size:clamp(7px,.8vw,11px);line-height:1.5;color:var(--mute)}
+.pc-i{display:flex;gap:8px}.pc-i img{width:clamp(14px,1.8vw,26px);height:auto;opacity:.9}
+.hshot .pshot-card b{font-size:clamp(28px,5vw,64px)}.hshot .pshot-card p{font-size:clamp(11px,1.2vw,15px)}.hshot .pc-i img{width:clamp(22px,2.6vw,34px)}
+
+/* ============ pinned scroll showcase: each screen slides up over the last, on its own colour ============ */
+.seq{position:relative;z-index:2;height:calc(var(--n)*85vh);margin:6vh 0}
+.seq-pin{position:sticky;top:0;display:grid;place-items:center;height:var(--inner-h,100vh);padding:0 16px}
+.seq-stage{position:relative;width:min(1100px,100%);height:min(78%,640px);overflow:hidden;border-radius:6px;border:1px solid var(--line);background:#0f0f0f}
+.seq-f{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;margin:0;padding:0 6%;background:var(--c);color:#0f0f0f;will-change:transform}
+.seq-f figcaption span{display:block;margin-bottom:14px;font:500 12px/1 var(--font-body);opacity:.6}
+.seq-f h3{font:400 clamp(30px,5vw,68px)/1 var(--font-display);letter-spacing:-.05em;text-transform:lowercase}
+.seq-i{align-self:end;justify-self:center;height:88%;display:flex;align-items:flex-end}
+.seq-i img{height:100%;width:auto;border-radius:22px 22px 0 0;border:6px solid #0f0f0f;border-bottom:0;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+@media (max-width:767px){.seq-f{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:6% 6% 0}.seq-i{height:100%}.seq-stage{height:84%}}
+
+/* ============ up next ============ */
+.upnext{position:relative;z-index:2;padding:12vh 16px 4vh}
+.upnext .title-2{margin:0 0 6vh;text-align:center;font:400 clamp(34px,5vw,64px)/1.05 var(--font-display);letter-spacing:-.045em}
