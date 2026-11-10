@@ -90,7 +90,7 @@ h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
 .eyebrow{font:500 12px/1 var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
 .center{text-align:center}
 .k-green{color:#8fff86}.k-acc{color:var(--accent)}.k-blue{color:var(--blue)}.k-red{color:var(--red)}.k-yellow{color:var(--yellow)}.k-purple{color:var(--purple)}.k-sky{color:var(--sky)}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:.1em .06em .24em;margin:-.1em -.06em -.24em}
 .wi{display:inline-block;will-change:transform}
 
 /* ============ editor-style windows ============ */
